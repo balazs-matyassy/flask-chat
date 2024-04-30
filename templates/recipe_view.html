@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1>{{ recipe.name }}</h1>
+
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <input type="text"
+               class="form-control"
+               id="category"
+               value="{{ recipe.category }}"
+               aria-describedby="category"
+               disabled>
+    </div>
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text"
+               class="form-control"
+               id="name"
+               value="{{ recipe.name }}"
+               aria-describedby="name"
+               disabled>
+    </div>
+
+    <div class="mb-3">
+        <label for="difficulty" class="form-label">Difficulty</label>
+        <select class="form-control" id="difficulty" aria-describedby="difficulty" disabled>
+            {% if recipe.difficulty == 1 %}
+                <option selected>
+                    ★☆☆☆☆ (Very easy)
+                </option>
+            {% elif recipe.difficulty == 2 %}
+                <option selected>
+                    ★★☆☆☆ (Easy)
+                </option>
+            {% elif recipe.difficulty == 3 %}
+                <option selected>
+                    ★★★☆☆ (Medium)
+                </option>
+            {% elif recipe.difficulty == 4 %}
+                <option selected>
+                    ★★★★☆ (Difficult)
+                </option>
+            {% elif recipe.difficulty == 5 %}
+                <option selected>
+                    ★★★★★ (Very difficult)
+                </option>
+            {% endif %}
+        </select>
+    </div>
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <a href="{{ url_for('list_all_recipes') }}" class="btn btn-secondary">Close</a>
+        </div>
+    </div>
+{% endblock %}

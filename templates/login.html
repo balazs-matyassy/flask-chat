@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1>Login</h1>
+
+    <form method="post">
+        {% if form.errors %}
+            <ul>
+                {% for error in form.errors %}
+                    <li class="text-danger">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username"
+                   type="text"
+                   class="form-control"
+                   id="username"
+                   value="{{ form.username }}"
+                   aria-describedby="username"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password"
+                   type="password"
+                   class="form-control"
+                   id="password"
+                   value="{{ form.password }}"
+                   aria-describedby="password"
+                   required>
+        </div>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    Login
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
