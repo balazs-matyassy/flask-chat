@@ -30,18 +30,17 @@ def install_command():
     with get_connection() as db:
         with db.cursor() as cursor:
             query = '''
-                    DROP TABLE IF EXISTS `recipe`;
+                    DROP TABLE IF EXISTS `message`;
             '''
 
             cursor.execute(query)
 
             query = '''
-                    CREATE TABLE `recipe`
+                    CREATE TABLE `message`
                     (
-                        `id`          INT          NOT NULL AUTO_INCREMENT,
-                        `category`    VARCHAR(255) NOT NULL,
-                        `name`        VARCHAR(255) NOT NULL,
-                        `difficulty`  INT          NOT NULL,
+                        `id`    INT          NOT NULL AUTO_INCREMENT,
+                        `title` VARCHAR(255) NOT NULL,
+                        `body`  TEXT         NOT NULL,
                         PRIMARY KEY (`id`)
                     );
             '''
