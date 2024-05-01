@@ -53,6 +53,16 @@ def logout():
     return redirect(url_for('list_all_messages'))
 
 
+@app.route('/api')
+def list_all_messages_api():
+    if request.args.get('search'):
+        messages = find_all_messages_by_title_like(request.args.get('search'))
+    else:
+        messages = find_all_messages()
+
+    return [message.form for message in messages]
+
+
 @app.route('/')
 def list_all_messages():
     if request.args.get('search'):
