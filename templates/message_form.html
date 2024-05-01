@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% set message = form.entity %}
+
+{% block main %}
+    <h1>{{ 'Create' if form.create_form else 'Edit' }} message</h1>
+
+    <form method="post">
+        {% if form.errors %}
+            <ul>
+                {% for error in form.errors %}
+                    <li class="text-danger">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="title"
+                   type="text"
+                   class="form-control"
+                   id="title"
+                   value="{{ message.title }}"
+                   aria-describedby="title"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label for="body" class="form-label">Body</label>
+            <textarea name="body"
+                      class="form-control"
+                      id="body"
+                      aria-describedby="body">{{ message.body }}</textarea>
+        </div>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                {% if not message.id %}
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Create message?')">
+                        Create
+                    </button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Save message?')">
+                        Save
+                    </button>
+                {% endif %}
+            </div>
+            <div class="col-auto">
+                <a href="{{ url_for('list_all_messages') }}" class="btn btn-secondary">Close</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

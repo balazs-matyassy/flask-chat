@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block search %}
+    <form>
+        <div class="row">
+            <div class="col-auto">
+                <input name="search" type="text" class="form-control" id="search"
+                       value="{{ request.args.get('search', '') }}">
+            </div>
+            <div class="col-auto">
+                <label for="search">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </label>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block main %}
+    <h1>Messages</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            {% if is_fully_authenticated() %}
+                <th colspan="2"></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message.title }}</td>
+                <td>{{ message.body }}</td>
+                {% if is_fully_authenticated() %}
+                    <td>
+                        <a href="{{ url_for('edit_message', message_id=message.id) }}" class="btn btn-primary">
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ url_for('delete_message', message_id=message.id) }}">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete message?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_fully_authenticated() %}
+        <p><a href="{{ url_for('create_message') }}" class="btn btn-primary">Create message</a></p>
+    {% endif %}
+{% endblock %}
